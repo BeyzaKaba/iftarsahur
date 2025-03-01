@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İftar ve Sahur Vakti</title>
+    <script>
+        function startCountdown(elementId, seconds) {
+            function updateCountdown() {
+                let hours = Math.floor(seconds / 3600);
+                let minutes = Math.floor((seconds % 3600) / 60);
+                let secs = seconds % 60;
+                document.getElementById(elementId).innerText = hours + " saat " + minutes + " dakika " + secs + " saniye";
+                if (seconds > 0) {
+                    seconds--;
+                    setTimeout(updateCountdown, 1000);
+                }
+            }
+            updateCountdown();
+        }
+
+        window.onload = function() {
+            startCountdown("iftar", {{ iftar_remaining }});
+            startCountdown("sahur", {{ sahur_remaining }});
+        };
+    </script>
+</head>
+<body>
+    <h1>{{ city }} İçin Namaz Vakitleri</h1>
+    <p>İftara kalan süre: <span id="iftar"></span></p>
+    <p>Sahura kalan süre: <span id="sahur"></span></p>
+</body>
+</html>
